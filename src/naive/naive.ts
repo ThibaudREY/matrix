@@ -3,6 +3,9 @@ import {Matrix} from "../matrix/matrix";
 export class Naive {
     public run(A: Matrix, B: Matrix): Matrix {
 
+        if (A.rows !== B.cols)
+            throw new Error('Unsupported operation')
+
         let C: Matrix = new Matrix(A.rows, B.cols)
 
         for (let i = 0; i < A.cols; i++) {
