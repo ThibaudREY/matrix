@@ -12,7 +12,7 @@ export class Matrix {
                     if (data) {
                         return <any>data[row_index][col_index];
                     } else
-                        return 0;
+                        return Math.floor(Math.random() * 10);
                 }));
 
         this._rows = rows;
@@ -27,6 +27,14 @@ export class Matrix {
 
     get cols(): number {
         return this._cols;
+    }
+
+    set rows(value: number) {
+        this._rows = value;
+    }
+
+    set cols(value: number) {
+        this._cols = value;
     }
 
     /**
@@ -164,5 +172,84 @@ export class Matrix {
         }
 
         return result;
+    }
+
+    /**
+     * Substracts another matrix
+     * @param {Matrix} m
+     */
+    public minus(m: Matrix): Matrix {
+
+        let c: Matrix = new Matrix(this.rows, this.cols);
+
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                c.set(i, j, this.get(i, j) - m.get(i, j))
+            }
+        }
+
+        return c;
+    }
+
+    /**
+     * Adds another matrix
+     * @param {Matrix} m
+     */
+    public plus(m: Matrix): Matrix {
+
+        if (m.rows !== this.rows || m.cols != this.cols)
+            throw new Error('Size mismatch');
+
+        let c: Matrix = new Matrix(this.rows, this.cols);
+
+        for (let i = 0; i < this.cols; i++) {
+            for (let j = 0; j < this.rows; j++) {
+                c.set(i, j, this.get(i, j) + m.get(i, j))
+            }
+        }
+
+        return c;
+    }
+
+    /**
+     *
+     * @param {number} n
+     * @return {this}
+     */
+    public coef(n: number): this {
+        for (let i = 0; i < this.cols; i++) {
+            for (let j = 0; j < this.rows; j++) {
+                this.set(i, j, this.get(i, j) * n);
+            }
+        }
+
+        return this;
+    }
+
+    /**
+     *
+     * @param {number} n
+     * @return {Array<number>}
+     */
+    public getRow(n: number): Array<number> {
+        return this.data[n];
+    }
+
+    /**
+     *
+     * @return {this}
+     */
+    public merge(top_right: Matrix, bottom_left: Matrix, bottom_right: Matrix): this {
+
+        this.data = this.data.map((row: Array<number>, i: number) => row.concat(top_right.getRow(i)));
+
+        for (let i = 0; i < bottom_left.rows; i++) {
+            this.data.push(bottom_left.getRow(i).concat(bottom_right.getRow(i)))
+        }
+
+        this.rows += bottom_left.rows;
+        this.cols += top_right.cols;
+
+        return this;
     }
 }

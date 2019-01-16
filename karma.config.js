@@ -25,7 +25,7 @@ module.exports = function(config) {
                 jsx: 'react',
                 module: 'commonjs',
                 sourceMap: true,
-                target: 'ES5',
+                target: 'ES6',
                 lib: ['DOM', 'ES2016'],
             },
             include: [

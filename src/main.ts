@@ -1,9 +1,13 @@
 import {Matrix} from "./matrix/matrix";
 import {Naive} from "./naive/naive";
+import {Strassen} from "./strassen/strassen";
 
-let a = new Matrix(2, 2, [[1, 1], [1, 1]]);
-let b = new Matrix(2, 2, [[2, 2], [2, 2]]);
+let a = new Matrix(5, 5);
+let b = new Matrix(5, 5);
 
 let n = new Naive();
+let s = new Strassen();
 
-n.run(a, b).display();
+let start: number = Date.now();
+s.run(a, b).display();
+// console.log(Date.now() - start);

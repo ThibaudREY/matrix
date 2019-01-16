@@ -4,7 +4,7 @@ export class Naive {
     public run(A: Matrix, B: Matrix): Matrix {
 
         if (A.rows !== B.cols)
-            throw new Error('Unsupported operation')
+            throw new Error('Unsupported operation');
 
         let C: Matrix = new Matrix(A.rows, B.cols)
 
