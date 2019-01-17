@@ -1,6 +1,6 @@
 import {Matrix} from "../matrix/matrix";
+const spawn = require('threads').spawn;
 
-const Pool = require('threads').Pool;
 
 export class Strassen {
 
@@ -18,7 +18,7 @@ export class Strassen {
         } else {
             let n: number = undefined;
 
-            if (!A.isNpair()) {
+            if (this.nextPowerOfTwo(A.cols) !== A.cols) {
                 n = this.nextPowerOfTwo(A.cols) - A.cols;
                 A.addN(n, 0);
                 B.addN(n, 0);
