@@ -16,7 +16,15 @@ app.post('/', function (req: any, res: any) {
     let a = new Matrix(req.body.A.size, req.body.A.size, req.body.A.data);
     let b = new Matrix(req.body.B.size, req.body.B.size, req.body.B.data);
 
-    res.send({naive: n.run(a, b).data, strassen: s.run(a, b).data})
+    let start = Date.now();
+    let naive = n.run(a, b).data;
+    let naiveTime = Date.now() - start;
+
+    start = Date.now();
+    let strassen = s.run(a, b).data;
+    let strassenTime = Date.now() - start;
+
+    res.send({naive: naive, naiveTime: naiveTime, strassen: strassen, strassenTime: strassenTime})
 });
 
 app.listen(3000);
