@@ -1,33 +1,23 @@
 import {Matrix} from "./matrix/matrix";
 import {Naive} from "./naive/naive";
 import {Strassen} from "./strassen/strassen";
-const fs = require('fs');
+const cors = require('cors');
+const express = require('express');
+const app = express();
 
+app.use(cors());
+app.use(express.json());
 
-// let a = new Matrix(256, 256);
-// let b = new Matrix(256, 256);
-//
 let n = new Naive();
 let s = new Strassen();
-//
-// let start: number = Date.now();
-// s.run(a, b);
-// console.log(Date.now() - start);
 
-let nr = [];
-let sr = [];
+app.post('/', function (req: any, res: any) {
 
-for (let i = 2; i < 2049; i++) {
-    let a = new Matrix(i, i);
-    let b = new Matrix(i, i);
+    let a = new Matrix(req.body.A.size, req.body.A.size, req.body.A.data);
+    let b = new Matrix(req.body.B.size, req.body.B.size, req.body.B.data);
 
-    let start: number = Date.now();
-    n.run(a, b);
-    nr.push(Date.now() - start);
+    res.send({naive: n.run(a, b).data, strassen: s.run(a, b).data})
+});
 
-    start = Date.now();
-    s.run(a, b);
-    sr.push(Date.now() - start);
-}
+app.listen(3000);
 
-fs.writeFile(__dirname + '/res.csv', nr.join(',') + '\n' + sr.join(','));

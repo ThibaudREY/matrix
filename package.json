@@ -37,6 +37,7 @@
   "dependencies": {
     "blob": "0.0.5",
     "copy-webpack-plugin": "^4.6.0",
+    "cors": "^2.8.5",
     "karma-typescript": "^3.0.13",
     "subworkers": "^1.0.1",
     "threads": "^0.12.0",

@@ -1,8 +1,8 @@
 export class Matrix {
 
-    private data: number[][] = null;
-    private _rows: number = 0;
-    private _cols: number = 0;
+    data: number[][] = null;
+    _rows: number = 0;
+    _cols: number = 0;
 
     constructor(rows: number, cols: number, data: Array<Array<number>> = null) {
 

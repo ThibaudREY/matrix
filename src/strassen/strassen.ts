@@ -1,6 +1,4 @@
 import {Matrix} from "../matrix/matrix";
-const spawn = require('threads').spawn;
-
 
 export class Strassen {
 
